@@ -1,6 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import ExpenseItem from './component/ExpenseItem';
+import NewExpense from './component/NewExpense/NewExpense';
+import ExpenseForm from './component/NewExpense/ExpenseForm';
+import ExpenseFilter from './component/NewExpense/ExpenseFilter';
+import Card from './component/Card';
+import { useState } from 'react';
 
 function App() {
   const expenses = [
@@ -15,18 +20,29 @@ function App() {
       id: 'e3',
       title: 'Car Insurance',
       amount: 294.67,
-      date: new Date(2021, 2, 28),
+      date: new Date(2022, 2, 28),
     },
     {
       id: 'e4',
       title: 'New Desk (Wooden)',
       amount: 450,
-      date: new Date(2021, 5, 12),
+      date: new Date(2019, 5, 12),
     },
   ];
+  const[filteredYear,setFilteredYear]=useState('2020')
+  const filterChangeHandler=selectedYear=>{
+    console.log("Expenses.js")
+    console.log(selectedYear)
+    setFilteredYear(selectedYear)
+  }
   return (
     <>
-      <h2>Lets Get Started</h2>
+    <div>
+      {/* <h2>Lets Get Started</h2> */}
+      <NewExpense/>
+      {/* <ExpenseForm/> */}
+      <Card className="expenses">
+      <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
       <ExpenseItem title={expenses[0].title}
         amount={expenses[0].amount}
         date={expenses[0].date}
@@ -49,6 +65,8 @@ function App() {
         amount={expenses[0].amount}
         date={expenses[0].date}
       ></ExpenseItem>
+      </Card>
+      </div>
 
     </>
   );
